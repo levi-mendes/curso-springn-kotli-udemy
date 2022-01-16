@@ -1,6 +1,7 @@
 package br.com.cursospringkotlinudemy.controller
 
 import br.com.cursospringkotlinudemy.controller.request.PostCustomerRequest
+import br.com.cursospringkotlinudemy.controller.request.PutCustomerRequest
 import br.com.cursospringkotlinudemy.model.CustomerModel
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -33,6 +34,14 @@ class CustomerController {
     @GetMapping("/{id}")
     fun getCustomer(@PathVariable id: String): CustomerModel {
         return customers.first { it.id == id }
+    }
+
+    @PutMapping("/{id}")
+    fun update(@PathVariable id: String, @RequestBody customer: PutCustomerRequest) {
+        customers.first { it.id == id }.let {
+            it.name = customer.name
+            it.email = customer.email
+        }
     }
 
 }

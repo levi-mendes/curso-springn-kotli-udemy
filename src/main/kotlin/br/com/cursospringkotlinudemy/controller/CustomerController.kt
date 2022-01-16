@@ -13,7 +13,10 @@ class CustomerController {
     var customers = mutableListOf<CustomerModel>()
 
     @GetMapping
-    fun getAll(): List<CustomerModel> {
+    fun getAll(@RequestParam name: String?): List<CustomerModel> {
+        name?.let {
+            return customers.filter { it.name.contains(name, ignoreCase = true) }
+        }
         return customers
     }
 

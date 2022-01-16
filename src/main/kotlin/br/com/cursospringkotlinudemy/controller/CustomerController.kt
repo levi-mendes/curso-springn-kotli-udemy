@@ -37,6 +37,7 @@ class CustomerController {
     }
 
     @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: String, @RequestBody customer: PutCustomerRequest) {
         customers.first { it.id == id }.let {
             it.name = customer.name
@@ -44,4 +45,9 @@ class CustomerController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun delete(@PathVariable id: String) {
+        customers.removeIf { it.id == id }
+    }
 }

@@ -2,6 +2,7 @@ package br.com.cursospringkotlinudemy.controller
 
 import br.com.cursospringkotlinudemy.controller.request.PostCustomerRequest
 import br.com.cursospringkotlinudemy.controller.request.PutCustomerRequest
+import br.com.cursospringkotlinudemy.extension.toCustomerModel
 import br.com.cursospringkotlinudemy.model.CustomerModel
 import br.com.cursospringkotlinudemy.service.CustomerService
 import org.springframework.http.HttpStatus
@@ -20,8 +21,8 @@ class CustomerController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody customer: PostCustomerRequest) {
-        customerService.create(customer)
+    fun create(@RequestBody request: PostCustomerRequest) {
+        customerService.create(request.toCustomerModel())
     }
 
     @GetMapping("/{id}")
@@ -31,8 +32,8 @@ class CustomerController(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id: String, @RequestBody customer: PutCustomerRequest) {
-        customerService.update(id, customer)
+    fun update(@PathVariable id: String, @RequestBody request: PutCustomerRequest) {
+        customerService.update(request.toCustomerModel(id))
     }
 
     @DeleteMapping("/{id}")

@@ -1,44 +1,42 @@
 package br.com.cursospringkotlinudemy.service
 
 import br.com.cursospringkotlinudemy.model.CustomerModel
+import br.com.cursospringkotlinudemy.repository.CustomerRepository
 import org.springframework.stereotype.Service
+import java.lang.Exception
 
 @Service
-class CustomerService {
-
-    var customers = mutableListOf<CustomerModel>()
+class CustomerService(
+    val repository: CustomerRepository
+) {
 
     fun getAll(name: String?): List<CustomerModel> {
         name?.let {
-            return customers.filter { it.name.contains(name, ignoreCase = true) }
+            return repository.findByNameContaining(name)
         }
-        return customers
-    }
 
-    fun id(): String {
-        return if (customers.isEmpty()) {
-            1
-        } else {
-            customers.last().id?.toInt()?.plus(1)
-        }.toString()
+        return repository.findAll().toList()
     }
 
     fun update(customer: CustomerModel) {
-        customers.first { it.id == customer.id }.let {
-            it.name = customer.name
-            it.email = customer.email
+        if (!repository.existsById(customer.id!!)) {
+            throw Exception("Registro nao encontrado")
         }
+
+        repository.save(customer)
     }
 
-    fun getCustomer(id: String): CustomerModel {
-        return customers.first { it.id == id }
+    fun getCustomer(id: Int): CustomerModel {
+        return repository.findById(id).orElseThrow()
     }
 
-    fun create(customer: CustomerModel) {
-        customers.add(CustomerModel(id(), customer.name, customer.email))
-    }
+    fun create(customer: CustomerModel) = repository.save(customer)
 
-    fun delete(id: String) {
-        customers.removeIf { it.id == id }
+    fun delete(id: Int) {
+        if (!repository.existsById(id)) {
+            throw Exception("Registro nao encontrado")
+        }
+
+        repository.deleteById(id)
     }
 }

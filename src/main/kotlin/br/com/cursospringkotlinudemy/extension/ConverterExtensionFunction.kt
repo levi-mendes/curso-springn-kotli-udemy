@@ -8,5 +8,5 @@ fun PostCustomerRequest.toCustomerModel() =
     CustomerModel(name = this.name, email =  this.email)
 
 
-fun PutCustomerRequest.toCustomerModel(id: String) =
+fun PutCustomerRequest.toCustomerModel(id: Int) =
     CustomerModel(id = id, name = this.name, email =  this.email)

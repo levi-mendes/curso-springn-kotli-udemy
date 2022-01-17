@@ -10,6 +10,8 @@ class CustomerService(
     val repository: CustomerRepository
 ) {
 
+    //https://www.baeldung.com/spring-jpa-like-queries
+
     fun getAll(name: String?): List<CustomerModel> {
         name?.let {
             return repository.findByNameContaining(name)

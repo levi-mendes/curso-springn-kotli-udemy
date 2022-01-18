@@ -1,5 +1,6 @@
 package br.com.cursospringkotlinudemy.service
 
+import br.com.cursospringkotlinudemy.CustomerStatus
 import br.com.cursospringkotlinudemy.model.CustomerModel
 import br.com.cursospringkotlinudemy.repository.CustomerRepository
 import org.springframework.stereotype.Service
@@ -38,7 +39,9 @@ class CustomerService(
     fun delete(id: Int) {
         val customer = findById(id)
 
-        bookService.deleteByCustomer(customer)//apenas muda o status para DELETADO
-        repository.deleteById(id)//nao consegue remover por causa dos filhos
+        //bookService.deleteByCustomer(customer)//apenas muda o status para DELETADO
+
+        customer.status = CustomerStatus.INATIVO
+        repository.save(customer)//apenas muda o status
     }
 }

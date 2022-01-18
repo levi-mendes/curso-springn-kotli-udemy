@@ -29,8 +29,10 @@ class CustomerController(
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun update(@PathVariable id: Int, @RequestBody request: PutCustomerRequest) =
-        customerService.update(request.toCustomerModel(id))
+    fun update(@PathVariable id: Int, @RequestBody request: PutCustomerRequest) {
+        val customer = getCustomer(id)
+        customerService.update(request.toCustomerModel(customer))
+    }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

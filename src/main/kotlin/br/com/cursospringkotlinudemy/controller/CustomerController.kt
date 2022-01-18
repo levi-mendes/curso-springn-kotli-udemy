@@ -2,8 +2,9 @@ package br.com.cursospringkotlinudemy.controller
 
 import br.com.cursospringkotlinudemy.controller.request.PostCustomerRequest
 import br.com.cursospringkotlinudemy.controller.request.PutCustomerRequest
+import br.com.cursospringkotlinudemy.controller.response.CustomerResponse
 import br.com.cursospringkotlinudemy.extension.toCustomerModel
-import br.com.cursospringkotlinudemy.model.CustomerModel
+import br.com.cursospringkotlinudemy.extension.toResponse
 import br.com.cursospringkotlinudemy.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -15,8 +16,8 @@ class CustomerController(
 ) {
 
     @GetMapping
-    fun getAll(@RequestParam name: String?): List<CustomerModel> =
-        customerService.getAll(name)
+    fun getAll(@RequestParam name: String?): List<CustomerResponse> =
+        customerService.getAll(name).map { it.toResponse() }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -24,13 +25,13 @@ class CustomerController(
         customerService.create(request.toCustomerModel())
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: Int): CustomerModel =
-        customerService.findById(id)
+    fun getCustomer(@PathVariable id: Int): CustomerResponse =
+        customerService.findById(id).toResponse()
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: Int, @RequestBody request: PutCustomerRequest) {
-        val customer = getCustomer(id)
+        val customer = customerService.findById(id)
         customerService.update(request.toCustomerModel(customer))
     }
 

@@ -3,6 +3,7 @@ package br.com.cursospringkotlinudemy.controller
 import br.com.cursospringkotlinudemy.controller.request.PostBookRequest
 import br.com.cursospringkotlinudemy.controller.request.PutBookRequest
 import br.com.cursospringkotlinudemy.extension.toBookModel
+import br.com.cursospringkotlinudemy.extension.toResponse
 import br.com.cursospringkotlinudemy.service.BookService
 import br.com.cursospringkotlinudemy.service.CustomerService
 import org.springframework.http.HttpStatus
@@ -23,13 +24,13 @@ class BookController(
     }
 
     @GetMapping
-    fun getBooks() = bookService.getBooks()
+    fun getBooks() = bookService.getBooks().map { it.toResponse() }
 
     @GetMapping("/active")
-    fun findActives() = bookService.findActives()
+    fun findActives() = bookService.findActives().map { it.toResponse() }
 
     @GetMapping("/{id}")
-    fun findById(@PathVariable id: Int) = bookService.findById(id)
+    fun findById(@PathVariable id: Int) = bookService.findById(id).toResponse()
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -38,7 +39,7 @@ class BookController(
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun update(@PathVariable id: Int, @RequestBody request: PutBookRequest) {
-        val bookModel = findById(id)
+        val bookModel = bookService.findById(id)
         bookService.update(request.toBookModel(bookModel))
     }
 }

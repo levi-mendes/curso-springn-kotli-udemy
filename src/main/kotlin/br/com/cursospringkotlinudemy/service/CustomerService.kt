@@ -39,9 +39,7 @@ class CustomerService(
     fun delete(id: Int) {
         val customer = findById(id)
 
-        //bookService.deleteByCustomer(customer)//apenas muda o status para DELETADO
-
         customer.status = CustomerStatus.INATIVO
-        repository.save(customer)//apenas muda o status
+        repository.save(customer)
     }
 }

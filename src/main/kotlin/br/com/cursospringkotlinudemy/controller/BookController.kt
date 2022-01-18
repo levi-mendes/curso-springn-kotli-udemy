@@ -3,7 +3,6 @@ package br.com.cursospringkotlinudemy.controller
 import br.com.cursospringkotlinudemy.controller.request.PostBookRequest
 import br.com.cursospringkotlinudemy.controller.request.PutBookRequest
 import br.com.cursospringkotlinudemy.extension.toBookModel
-import br.com.cursospringkotlinudemy.model.BookModel
 import br.com.cursospringkotlinudemy.service.BookService
 import br.com.cursospringkotlinudemy.service.CustomerService
 import org.springframework.http.HttpStatus
@@ -19,7 +18,7 @@ class BookController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody request: PostBookRequest) {
-        val customer = customerService.getCustomerId(request.customerId)
+        val customer = customerService.findById(request.customerId)
         bookService.create(request.toBookModel(customer))
     }
 

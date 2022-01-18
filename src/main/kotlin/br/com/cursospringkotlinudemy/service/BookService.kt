@@ -2,6 +2,7 @@ package br.com.cursospringkotlinudemy.service
 
 import br.com.cursospringkotlinudemy.BookStatus
 import br.com.cursospringkotlinudemy.model.BookModel
+import br.com.cursospringkotlinudemy.model.CustomerModel
 import br.com.cursospringkotlinudemy.repository.BookRepository
 import org.springframework.stereotype.Service
 import java.lang.Exception
@@ -43,5 +44,12 @@ class BookService(
         }
 
         repoitory.save(book)
+    }
+
+    fun deleteByCustomer(customer: CustomerModel) {
+        val books = repoitory.findByCustomer(customer)
+
+        books.forEach { it.status = BookStatus.DELETADO }
+        repoitory.saveAll(books)
     }
 }

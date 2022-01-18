@@ -7,7 +7,8 @@ import java.lang.Exception
 
 @Service
 class CustomerService(
-    val repository: CustomerRepository
+    val repository: CustomerRepository,
+    val bookService: BookService
 ) {
 
     //https://www.baeldung.com/spring-jpa-like-queries
@@ -28,17 +29,16 @@ class CustomerService(
         repository.save(customer)
     }
 
-    fun getCustomerId(id: Int): CustomerModel {
+    fun findById(id: Int): CustomerModel {
         return repository.findById(id).orElseThrow()
     }
 
     fun create(customer: CustomerModel) = repository.save(customer)
 
     fun delete(id: Int) {
-        if (!repository.existsById(id)) {
-            throw Exception("Registro nao encontrado")
-        }
+        val customer = findById(id)
 
-        repository.deleteById(id)
+        bookService.deleteByCustomer(customer)//apenas muda o status para DELETADO
+        repository.deleteById(id)//nao consegue remover por causa dos filhos
     }
 }

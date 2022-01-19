@@ -4,6 +4,9 @@ import br.com.cursospringkotlinudemy.BookStatus
 import br.com.cursospringkotlinudemy.model.BookModel
 import br.com.cursospringkotlinudemy.model.CustomerModel
 import br.com.cursospringkotlinudemy.repository.BookRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.stereotype.Service
 import java.lang.Exception
 
@@ -12,12 +15,12 @@ class BookService(
     val repoitory: BookRepository
 ) {
 
-    fun getBooks(): List<BookModel> {
-        return repoitory.findAll().toList()
+    fun getBooks(pageable: Pageable): Page<BookModel> {
+        return repoitory.findAll(pageable)
     }
 
-    fun findActives(): List<BookModel> {
-        return repoitory.findByStatus(BookStatus.ATIVO)
+    fun findActives(pageable: Pageable): Page<BookModel> {
+        return repoitory.findByStatus(BookStatus.ATIVO, pageable)
     }
 
     fun getById(id: Int): BookModel {

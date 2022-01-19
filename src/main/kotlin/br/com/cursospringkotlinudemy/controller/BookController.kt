@@ -6,6 +6,8 @@ import br.com.cursospringkotlinudemy.extension.toBookModel
 import br.com.cursospringkotlinudemy.extension.toResponse
 import br.com.cursospringkotlinudemy.service.BookService
 import br.com.cursospringkotlinudemy.service.CustomerService
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
@@ -24,10 +26,12 @@ class BookController(
     }
 
     @GetMapping
-    fun getBooks() = bookService.getBooks().map { it.toResponse() }
+    fun getBooks(@PageableDefault(page = 0, size = 10) pageable: Pageable) =
+        bookService.getBooks(pageable).map { it.toResponse() }
 
     @GetMapping("/active")
-    fun findActives() = bookService.findActives().map { it.toResponse() }
+    fun findActives(@PageableDefault(page = 0, size = 10) pageable: Pageable) =
+        bookService.findActives(pageable).map { it.toResponse() }
 
     @GetMapping("/{id}")
     fun findById(@PathVariable id: Int) = bookService.findById(id).toResponse()

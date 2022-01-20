@@ -1,9 +1,13 @@
 package br.com.cursospringkotlinudemy.controller.request
 
-import br.com.cursospringkotlinudemy.enums.CustomerStatus
+import javax.validation.constraints.Email
+import javax.validation.constraints.NotEmpty
 
 data class PutCustomerRequest(
+
+    @field:NotEmpty
     var name: String,
-    var email: String,
-    var status: CustomerStatus
+
+    @field:Email
+    var email: String
 )

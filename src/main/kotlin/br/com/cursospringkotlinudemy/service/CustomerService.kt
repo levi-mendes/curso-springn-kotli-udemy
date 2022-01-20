@@ -1,6 +1,8 @@
 package br.com.cursospringkotlinudemy.service
 
 import br.com.cursospringkotlinudemy.enums.CustomerStatus
+import br.com.cursospringkotlinudemy.enums.Errors
+import br.com.cursospringkotlinudemy.exception.NotFoundException
 import br.com.cursospringkotlinudemy.model.CustomerModel
 import br.com.cursospringkotlinudemy.repository.CustomerRepository
 import org.springframework.stereotype.Service
@@ -31,7 +33,9 @@ class CustomerService(
     }
 
     fun findById(id: Int): CustomerModel {
-        return repository.findById(id).orElseThrow()
+        return repository.findById(id).orElseThrow {
+            NotFoundException(Errors.ML201.message.format(id), Errors.ML201.code)
+        }
     }
 
     fun create(customer: CustomerModel) = repository.save(customer)

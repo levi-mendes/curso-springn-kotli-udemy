@@ -39,7 +39,7 @@ class BookService(
     fun findById(id: Int): BookModel {
         return repoitory.findById(id).orElseThrow{
             NotFoundException(
-                Errors.ML0001.message.format(id), Errors.ML0001.code)
+                Errors.ML101.message.format(id), Errors.ML101.code)
         }
     }
 

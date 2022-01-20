@@ -5,7 +5,8 @@ enum class Errors(
     val message: String
 ) {
 
-    ML0001("ML-0001", "Book [%s] not exists"),
+    ML201("ML-201", "Customer [%s] doesnt exists"),
 
+    ML101("ML-101", "Book [%s] not exists"),
     ML102("ML-102", "Cannot update book with status [%s]")
 }

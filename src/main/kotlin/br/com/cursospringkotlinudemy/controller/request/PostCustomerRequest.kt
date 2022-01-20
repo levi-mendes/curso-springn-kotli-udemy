@@ -1,5 +1,6 @@
 package br.com.cursospringkotlinudemy.controller.request
 
+import br.com.cursospringkotlinudemy.validation.EmailAvailable
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotEmpty
 
@@ -9,6 +10,6 @@ data class PostCustomerRequest(
     var name: String,
 
     @field:Email(message = "Email deve ser valido")
-    @field:NotEmpty(message = "Email deve ser informado")
+    @EmailAvailable
     var email: String
 )

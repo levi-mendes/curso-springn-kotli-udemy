@@ -1,4 +1,4 @@
-package br.com.cursospringkotlinudemy
+package br.com.cursospringkotlinudemy.enums
 
 enum class BookStatus {
     ATIVO,

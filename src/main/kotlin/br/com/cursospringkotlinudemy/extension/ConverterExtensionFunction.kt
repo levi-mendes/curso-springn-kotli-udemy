@@ -1,7 +1,7 @@
 package br.com.cursospringkotlinudemy.extension
 
-import br.com.cursospringkotlinudemy.BookStatus
-import br.com.cursospringkotlinudemy.CustomerStatus
+import br.com.cursospringkotlinudemy.enums.BookStatus
+import br.com.cursospringkotlinudemy.enums.CustomerStatus
 import br.com.cursospringkotlinudemy.controller.request.PostBookRequest
 import br.com.cursospringkotlinudemy.controller.request.PostCustomerRequest
 import br.com.cursospringkotlinudemy.controller.request.PutBookRequest

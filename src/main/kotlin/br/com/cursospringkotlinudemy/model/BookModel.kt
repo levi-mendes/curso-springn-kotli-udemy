@@ -1,6 +1,8 @@
 package br.com.cursospringkotlinudemy.model
 
-import br.com.cursospringkotlinudemy.BookStatus
+import br.com.cursospringkotlinudemy.enums.BookStatus
+import br.com.cursospringkotlinudemy.enums.Errors
+import br.com.cursospringkotlinudemy.exception.BadRequestException
 import java.lang.Exception
 import java.math.BigDecimal
 import javax.persistence.*
@@ -28,7 +30,7 @@ data class BookModel(
     var status: BookStatus? = null
         set(value) {
             if (field == BookStatus.DELETADO || field == BookStatus.CANCELADO)
-                throw Exception("Nao é possível alterar o status de um livro $field")
+                throw BadRequestException(Errors.ML102.message.format(field), Errors.ML102.code)
 
             field = value
         }

@@ -1,6 +1,6 @@
 package br.com.cursospringkotlinudemy.service
 
-import br.com.cursospringkotlinudemy.CustomerStatus
+import br.com.cursospringkotlinudemy.enums.CustomerStatus
 import br.com.cursospringkotlinudemy.model.CustomerModel
 import br.com.cursospringkotlinudemy.repository.CustomerRepository
 import org.springframework.stereotype.Service

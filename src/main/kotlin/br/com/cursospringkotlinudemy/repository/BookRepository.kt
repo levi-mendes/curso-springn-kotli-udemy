@@ -1,6 +1,6 @@
 package br.com.cursospringkotlinudemy.repository
 
-import br.com.cursospringkotlinudemy.BookStatus
+import br.com.cursospringkotlinudemy.enums.BookStatus
 import br.com.cursospringkotlinudemy.model.BookModel
 import br.com.cursospringkotlinudemy.model.CustomerModel
 import org.springframework.data.domain.Page

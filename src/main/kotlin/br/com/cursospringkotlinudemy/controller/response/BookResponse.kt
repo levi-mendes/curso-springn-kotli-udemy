@@ -1,6 +1,6 @@
 package br.com.cursospringkotlinudemy.controller.response
 
-import br.com.cursospringkotlinudemy.BookStatus
+import br.com.cursospringkotlinudemy.enums.BookStatus
 import br.com.cursospringkotlinudemy.model.CustomerModel
 import java.math.BigDecimal
 

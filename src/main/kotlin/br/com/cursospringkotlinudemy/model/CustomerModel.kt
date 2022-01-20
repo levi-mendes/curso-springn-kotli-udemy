@@ -1,6 +1,6 @@
 package br.com.cursospringkotlinudemy.model
 
-import br.com.cursospringkotlinudemy.CustomerStatus
+import br.com.cursospringkotlinudemy.enums.CustomerStatus
 import javax.persistence.*
 
 @Entity(name = "customer")

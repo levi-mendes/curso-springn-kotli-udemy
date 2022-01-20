@@ -1,6 +1,6 @@
 package br.com.cursospringkotlinudemy.controller.request
 
-import br.com.cursospringkotlinudemy.CustomerStatus
+import br.com.cursospringkotlinudemy.enums.CustomerStatus
 
 data class PutCustomerRequest(
     var name: String,

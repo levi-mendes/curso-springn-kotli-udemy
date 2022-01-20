@@ -1,12 +1,13 @@
 package br.com.cursospringkotlinudemy.service
 
-import br.com.cursospringkotlinudemy.BookStatus
+import br.com.cursospringkotlinudemy.enums.BookStatus
+import br.com.cursospringkotlinudemy.enums.Errors
+import br.com.cursospringkotlinudemy.exception.NotFoundException
 import br.com.cursospringkotlinudemy.model.BookModel
 import br.com.cursospringkotlinudemy.model.CustomerModel
 import br.com.cursospringkotlinudemy.repository.BookRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import org.springframework.data.web.PageableDefault
 import org.springframework.stereotype.Service
 import java.lang.Exception
 
@@ -23,10 +24,6 @@ class BookService(
         return repoitory.findByStatus(BookStatus.ATIVO, pageable)
     }
 
-    fun getById(id: Int): BookModel {
-        return repoitory.findById(id).orElseThrow()
-    }
-
     fun create(book: BookModel) {
         repoitory.save(book)
     }
@@ -39,7 +36,12 @@ class BookService(
         update(book)
     }
 
-    fun findById(id: Int): BookModel = repoitory.findById(id).orElseThrow()
+    fun findById(id: Int): BookModel {
+        return repoitory.findById(id).orElseThrow{
+            NotFoundException(
+                Errors.ML0001.message.format(id), Errors.ML0001.code)
+        }
+    }
 
     fun update(book: BookModel) {
         if (!repoitory.existsById(book.id!!)) {
